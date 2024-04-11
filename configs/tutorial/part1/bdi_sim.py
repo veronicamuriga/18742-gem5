@@ -38,6 +38,8 @@ line options from each individual class.
 
 import m5
 from m5.objects import Cache
+# from gem5 import compression
+from m5.objects.Compressors import Base64Delta32
 
 # Add the common scripts to our path
 m5.util.addToPath("../../")
@@ -47,6 +49,9 @@ from common import SimpleOpts
 # Some specific options for caches
 # For all options see src/mem/cache/BaseCache.py
 
+# compressed_Cache = Cache.compressors
+
+    
 
 class L1Cache(Cache):
     """Simple L1 Cache with default values"""
@@ -114,31 +119,67 @@ class L1DCache(L1Cache):
         self.cpu_side = cpu.dcache_port
 
 
-class L2Cache(Cache):
-    """Simple L2 Cache with default values"""
+# class L2Cache(Cache):
+#     """Simple L2 Cache with default values"""
 
-    # Default parameters
-    size = "256kB"
-    assoc = 8
-    tag_latency = 20
-    data_latency = 20
-    response_latency = 20
-    mshrs = 20
-    tgts_per_mshr = 12
+#     # Default parameters
+#     size = "256kB"
+#     assoc = 8
+#     tag_latency = 20
+#     data_latency = 20
+#     response_latency = 20
+#     mshrs = 20
+#     tgts_per_mshr = 12
 
-    SimpleOpts.add_option("--l2_size", help=f"L2 cache size. Default: {size}")
+#     SimpleOpts.add_option("--l2_size", help=f"L2 cache size. Default: {size}")
 
-    def __init__(self, opts=None):
+#     def __init__(self, opts=None):
+#         super().__init__()
+#         if not opts or not opts.l2_size:
+#             return
+#         self.size = opts.l2_size
+
+#     def connectCPUSideBus(self, bus):
+#         self.cpu_side = bus.mem_side_ports
+
+#     def connectMemSideBus(self, bus):
+#         self.mem_side = bus.cpu_side_ports
+
+# class BDICompressedCache(Base64Delta32):
+#     def __init__(self, options=None):
+#         super().__init__()
+
+#         # cpu_side = None
+#         # mem_side = None# pass
+
+#     def connectCPUSideBus(self, bus):
+#         raise NotImplementedError
+
+#     def connectMemSideBus(self, bus):
+#         raise NotImplementedError
+
+
+class L2Cache(Base64Delta32):
+    SimpleOpts.add_option("--dictionary_size", help=f"number of dictionary entries")
+
+    def __init__(self, cpu_side = None, mem_side = None, opts=None):
+
         super().__init__()
-        if not opts or not opts.l2_size:
+        if not opts or not opts.dictionary_size:
             return
-        self.size = opts.l2_size
+
+        self.dictionary_size = opts.dictionary_size
+        self.cpu_side = cpu_side    
+        self.mem_side = mem_side
+
 
     def connectCPUSideBus(self, bus):
         self.cpu_side = bus.mem_side_ports
 
     def connectMemSideBus(self, bus):
         self.mem_side = bus.cpu_side_ports
+
+    
 
 
 """

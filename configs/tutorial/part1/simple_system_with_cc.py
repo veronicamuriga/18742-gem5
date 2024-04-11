@@ -2,6 +2,10 @@
 This is a tutorial to set up a simple simulation script for gem5.
 The system will have one CPU core, connected to a system-wide memory bus
 The system will also have a single DDR3 memory channel, also connected to the memory bus
+
+To run a simulation with this setup:
+build/X86/gem5.opt configs/tutorial/part1/simple_system_with_cc.py --dictionary_size='8' --l1d_size='128kB'
+
 """
 
 
