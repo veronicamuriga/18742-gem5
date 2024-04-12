@@ -59,7 +59,7 @@ m5.util.addToPath("../../")
 
 # import the caches which we made
 # from caches import *
-from bdi_sim import *
+from caches_with_compressed_l2 import *
 
 # import the SimpleOpts module
 from common import SimpleOpts
@@ -110,6 +110,7 @@ system.cpu.icache.connectBus(system.l2bus)
 system.cpu.dcache.connectBus(system.l2bus)
 
 # Create an L2 cache and connect it to the l2bus
+print(f"Creating l2 cache")
 system.l2cache = L2Cache(args)
 system.l2cache.connectCPUSideBus(system.l2bus)
 

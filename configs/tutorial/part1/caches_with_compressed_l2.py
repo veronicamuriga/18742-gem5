@@ -151,25 +151,6 @@ class L2Cache(Cache):
     def connectMemSideBus(self, bus):
         self.mem_side = bus.cpu_side_ports
 
-
-# class L2Cache(Base64Delta32):
-#     SimpleOpts.add_option("--dictionary_size", help=f"number of dictionary entries")
-
-#     def __init__(self, cpu_side = None, mem_side = None, opts=None):
-
-#         super().__init__()
-#         if not opts or not opts.dictionary_size:
-#             return
-
-#         self.dictionary_size = opts.dictionary_size
-#         self.cpu_side = cpu_side    
-#         self.mem_side = mem_side
-
-#     def connectCPUSideBus(self, bus):
-#         self.cpu_side = bus.mem_side_ports
-
-#     def connectMemSideBus(self, bus):
-#         self.mem_side = bus.cpu_side_ports
     
 
 """

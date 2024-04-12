@@ -210,6 +210,7 @@ class ParamDesc:
             return False
 
     def convert(self, value):
+        # print(f"value: {value}")
         if isinstance(value, proxy.BaseProxy):
             value.set_param_desc(self)
             return value
