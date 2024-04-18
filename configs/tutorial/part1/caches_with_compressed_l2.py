@@ -144,7 +144,7 @@ class L2Cache(Cache):
         # compressed_cache = 
         self.compressor = Base64Delta32()
         self.tags = CompressedTags()
-
+        
     def connectCPUSideBus(self, bus):
         self.cpu_side = bus.mem_side_ports
 

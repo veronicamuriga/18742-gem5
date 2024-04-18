@@ -123,6 +123,7 @@ class Base32Delta8(BaseDictionaryCompressor):
     cxx_class = "gem5::compression::Base32Delta8"
     cxx_header = "mem/cache/compressors/base_delta.hh"
 
+
     chunk_size_bits = 32
 
     # Base-delta compressors achieve 1-cycle latencies
